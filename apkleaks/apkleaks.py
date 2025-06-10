@@ -42,7 +42,8 @@ class APKLeaks:
 		return APK(self.file)
 
 	def dependencies(self):
-		exter = "https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-1.2.0.zip"
+		# exter = "https://github.com/skylot/jadx/releases/download/v1.2.0/jadx-1.2.0.zip"
+		exter = "https://github.com/skylot/jadx/releases/download/v1.5.2/jadx-1.5.2.zip"
 		try:
 			with closing(urlopen(exter)) as jadx:
 				with ZipFile(io.BytesIO(jadx.read())) as zfile:
