@@ -8,6 +8,7 @@ import shutil
 import sys
 import tempfile
 import threading
+import pathlib
 
 from contextlib import closing
 from shutil import which
@@ -28,7 +29,10 @@ class APKLeaks:
 		self.json = args.json
 		self.disarg = args.args
 		self.prefix = "apkleaks-"
-		self.tempdir = tempfile.mkdtemp(prefix=self.prefix)
+		# self.tempdir = tempfile.mkdtemp(prefix=self.prefix)
+		self.tempdir = pathlib.Path(os.path.join(os.getcwd(), "out")) / pathlib.Path(args.file).stem
+		pathlib.Path(self.tempdir).mkdir(parents=True, exist_ok=True)
+		self.tempdir = str(self.tempdir)
 		self.main_dir = os.path.dirname(os.path.realpath(__file__))
 		self.output = tempfile.mkstemp(suffix=".%s" % ("json" if self.json else "txt"), prefix=self.prefix)[1] if args.output is None else args.output
 		self.fileout = open(self.output, "%s" % ("w" if self.json else "a"))
@@ -139,7 +143,7 @@ class APKLeaks:
 						sys.exit(util.writeln("\n** Interrupted. Aborting...", col.FAIL))
 
 	def cleanup(self):
-		shutil.rmtree(self.tempdir)
+		# shutil.rmtree(self.tempdir)
 		if self.scanned:
 			self.fileout.write("%s" % (json.dumps(self.out_json, indent=4) if self.json else ""))
 			self.fileout.close()

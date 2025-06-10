@@ -5,6 +5,7 @@ build/
 dist/
 venv/
 sample_apks/
+out/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
